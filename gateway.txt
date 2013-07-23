@@ -1,6 +1,7 @@
 *** Settings ***
 Library           Selenium2Library
+Resource          keyword.txt
 
 *** Test Cases ***
 gateway
-    open browser    http://www.baidu.com
+    正常支付
