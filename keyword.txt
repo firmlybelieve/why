@@ -8,7 +8,7 @@ ${url}            http://192.168.91.10:93/test/index.htm
 
 *** Keywords ***
 正常支付
-    open browser    ${url}
+    open browser    @{url}[0]
     click button    Submit1
     Wait Until Page Contains    Card number
     input text    txtCardNum    @{cardNum}[0]
