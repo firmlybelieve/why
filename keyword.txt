@@ -1,0 +1,31 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Variables ***
+${url}            http://192.168.91.10:93/test/index.htm
+@{url}            http://192.168.91.10:93/test/index.htm
+@{cardNum}        4111115555555555
+
+*** Keywords ***
+正常支付
+    open browser    ${url}
+    click button    Submit1
+    Wait Until Page Contains    Card number
+    input text    txtCardNum    @{cardNum}[0]
+    input text    txtCVV    788
+    input text    txtIssuer    ICBC
+    input text    txtCardHolderName    eddy
+    input text    txtLastNmae    wang
+    select from list    slExpireMonth    10
+    select from list    slExpireYear    2020
+    select from list    slBinCountry    CHN
+    Comment    select from list    slCountry    CHN
+    Comment    select from list by index    ddlProvinceCA    2
+    Comment    input text    ddlProvinceCA    beijing
+    input text    txtCity    CA
+    input text    txtStreet    shanghaihongqiao
+    input text    txtPost    94043
+    input text    txtEmail    jack.li@91hpay.com
+    input text    txtPhone    13477859638
+    click button    btnPay
+    page should contain button    Back to store
