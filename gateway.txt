@@ -1,0 +1,6 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Test Cases ***
+gateway
+    open browser    http://www.baidu.com
