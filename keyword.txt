@@ -2,16 +2,11 @@
 Library           Selenium2Library
 
 *** Variables ***
-${url}            http://192.168.91.10:93/test/index.htm
-@{url}            http://192.168.91.10:93/test/index.htm
-@{cardNum}        4111115555555555
 
 *** Keywords ***
-正常支付
-    open browser    @{url}[0]
-    click button    Submit1
-    Wait Until Page Contains    Card number
-    input text    txtCardNum    @{cardNum}[0]
+填写卡信息
+    [Arguments]    ${cardNum}    ${email}
+    input text    txtCardNum    @{cardNum}
     input text    txtCVV    788
     input text    txtIssuer    ICBC
     input text    txtCardHolderName    eddy
@@ -25,7 +20,16 @@ ${url}            http://192.168.91.10:93/test/index.htm
     input text    txtCity    CA
     input text    txtStreet    shanghaihongqiao
     input text    txtPost    94043
-    input text    txtEmail    jack.li@91hpay.com
+    input text    txtEmail    @{email}
     input text    txtPhone    13477859638
     click button    btnPay
-    page should contain button    Back to store
+
+提交订单
+    [Arguments]    ${url}    ${merchantid}    ${merchantcert}
+    open browser    @{url}
+    input text    merchantid    @{merchantid}
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    input text    merchantcert    @{merchantcert}
+    click button    Submit1
+    Wait Until Page Contains    Card number
