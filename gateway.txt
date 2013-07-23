@@ -5,3 +5,4 @@ Resource          keyword.txt
 *** Test Cases ***
 gateway
     正常支付
+    [Teardown]    close browser
