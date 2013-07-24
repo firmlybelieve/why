@@ -28,8 +28,8 @@ Library           Selenium2Library
     [Arguments]    ${url}    ${merchantid}    ${merchantcert}
     open browser    @{url}
     input text    merchantid    @{merchantid}
+    input text    merchantcert    @{merchantcert}
     ${random} =    evaluate    random.randint(0,100)    random,sys
     input text    orderamount    ${random}
-    input text    merchantcert    @{merchantcert}
     click button    Submit1
     Wait Until Page Contains    Card number
