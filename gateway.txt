@@ -14,7 +14,10 @@ Resource          keyword.txt
 gateway
     [Documentation]    正常支付
     [Tags]    A
+    set selenium speed    .5 seconds
     提交订单    @{url}[0]    @{merchantid}[0]    @{merchantcert}[0]
+    Capture Page Screenshot    PayPage_normal.jpg
     填写卡信息    @{cardNum}[0]    @{email}[0]
     page should contain button    @{result}[0]
+    Capture Page Screenshot    result.jpg
     [Teardown]
