@@ -16,6 +16,7 @@ Library           Selenium2Library
     ${orderid1} =    get value    orderid
     input text    productname1    ${productname}
     click button    Submit1
+    capture page screenshot
     input text    txtCardNum    ${cardNum}
     input text    txtCVV    788
     input text    txtIssuer    ICBC
@@ -37,4 +38,5 @@ Library           Selenium2Library
     Comment    ${ro_result}=    get text    lErrorCode
     Comment    run keyword if    '${expect_result}'=='{ro_result}'    成功提示    ELSE    失败提示
     location should contain    ${expect_result}
+    capture page screenshot
     [Teardown]    close browser
