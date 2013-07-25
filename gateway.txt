@@ -1,23 +1,17 @@
 *** Settings ***
 Library           Selenium2Library
-Resource          keyword.txt
+Resource          keywords.txt
+Library           BuiltIn
 
 *** Variables ***
-@{result}         Back to store
-@{url}            http://192.168.91.10:93/test/index.htm
-@{merchantcert}    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J
-@{merchantid}     100085
-@{email}          eddy.wang@91hpay.com
-@{cardNum}        4111115555555555
 
 *** Test Cases ***
-gateway
-    [Documentation]    正常支付
-    [Tags]    A
-    set selenium speed    1 seconds
-    提交订单    @{url}[0]    @{merchantid}[0]    @{merchantcert}[0]
-    Capture Page Screenshot    PayPage_normal.jpg
-    填写卡信息    @{cardNum}[0]    @{email}[0]
-    page should contain button    @{result}[0]
-    Capture Page Screenshot    result.jpg
+支付_确认
+    [Documentation]    1.正常支付
+    ...    2.卡号黑名单
+    ...    3.邮箱黑名单
+    [Template]    支付订单
+    http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    篮球    4111111111111111    eddy.wang@91hpay.com    1000
+    http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    足球    4222222222222222    eddy.wang@91hpay.com    SVR0100006
+    http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    乒乓球    4111111111111111    eddy.wang@126.com    SVR0100017
     [Teardown]
