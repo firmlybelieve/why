@@ -7,6 +7,7 @@ Library           Selenium2Library
 支付订单
     [Arguments]    ${url}    ${merchantid}    ${merchantcert}    ${cardNum}    ${email}    ${expect_result}
     [Documentation]    本操作：包含提交订单和确认订单
+    set selenium speed    0.5 seconds
     open browser    ${url}    ff
     input text    merchantid    ${merchantid}
     input text    merchantcert    ${merchantcert}
