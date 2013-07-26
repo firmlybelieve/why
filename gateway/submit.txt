@@ -2,7 +2,7 @@
 Library           Selenium2Library
 Resource          keywords.txt
 
-*** Test Cases ***    url                                       商户ID      商户证书                                                                                                                                产品名称    预期结果
-submit                [Template]                                提交订单
-                      http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    a1      SVR0100021
-                      http://192.168.91.10:93/test/index.htm    100085    11111                                                                                                                               足球      W1CK000012
+*** Test Cases ***    url                                     商户ID      商户证书                                                                                                                                产品名称    预期结果
+submit                [Template]                              提交订单
+                      http://172.21.42.1:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    a1      SVR0100021
+                      http://172.21.42.1:93/test/index.htm    100085    11111                                                                                                                               足球      W1CK000012
