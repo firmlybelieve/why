@@ -1,0 +1,9 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          keywords.txt
+
+*** Test Cases ***    url                                       商户ID      商户证书                                                                                                                                卡号                  账单邮箱                    预期结果
+提交                    [Template]                                支付订单
+                      http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    4111111111111111    eddy.wang@91hpay.com    1000
+                      http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    4222222222222222    eddy.wang@91hpay.com    SVR0100006
+                      http://192.168.91.10:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    4111111111111111    eddy.wang@126.com       SVR0100017
