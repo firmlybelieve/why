@@ -1,9 +1,0 @@
-*** Settings ***
-Library           Selenium2Library
-
-*** Test Cases ***
-open browser
-    open browser    http://www.baidu.com
-
-input
-    input text    kw    why
