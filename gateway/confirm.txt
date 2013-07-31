@@ -5,4 +5,4 @@ Library           OperatingSystem
 
 *** Test Cases ***    url                                     商户ID      商户证书                                                                                                                                卡号                  账单邮箱                    预期结果
 confirm               [Template]                              支付订单
-                      http://172.21.42.1:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    4111111111111111    eddy.wang@91hpay.com    10000
+                      http://172.21.42.1:93/test/index.htm    100085    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J    4111111111111111    eddy.wang@91hpay.com    1000
