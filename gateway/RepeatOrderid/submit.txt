@@ -1,0 +1,116 @@
+*** Settings ***
+Suite Teardown    close browser
+Library           Selenium2Library
+Library           DatabaseLibrary
+
+*** Variables ***
+${url}            http://172.21.42.1:93/test/index.htm
+${merchantid}     100085
+${merchantcert}    O7sZbxQ1epKuIocuPaq2PQQ3UaHdS7531AXNk3n470xhF5dmAqSZ8nc6qxfbYMjgsPBiAxkUWv3YtIyY6vMBog4OyZxWYmfuQqYZE3Vcg7cMsmMR8peDaQ0mTVTJaw4J
+${cardnum}        4111111111111111
+
+*** Test Cases ***
+submit1
+    [Documentation]    提交一笔未支付订单
+    [Tags]    RO
+    open browser    ${url}
+    input text    merchantid    ${merchantid}
+    input text    merchantcert    ${merchantcert}
+    select from list    transmode    新支付
+    select from list    currency    日元
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    click button    Submit1
+    page should contain    btnPay
+    [Teardown]    close browser
+
+submit2
+    [Documentation]    1.使用submit1的商户订单号（修改币种、金额）支付一笔失败的订单
+    [Tags]    RO
+    open browser    ${url}
+    Connect To Database Using Custom Params    cx_Oracle    'tas','LHdBa91hpaycom','orcl37'
+    @{res}    query    select merchantorderid from TRANSACTION_TOSUBMIT t where merchantid='100085' order by logdate desc
+    input text    orderid    @{res}[0]
+    Disconnect from Database
+    input text    merchantid    ${merchantid}
+    input text    merchantcert    ${merchantcert}
+    select from list    transmode    新支付
+    select from list    currency    美元
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    click button    Submit1
+    wait until page contains    Credit Card information
+    input text    txtCardNum    ${cardnum}
+    select from list    slExpireMonth    11
+    select from list    slExpireYear    2025
+    input text    txtCardHolderName    123
+    input text    txtLastNmae    wang
+    input text    txtCVV    788
+    execute javascript    return VerifyPage();
+    execute javascript    javascript:__doPostBack('btnPay','')
+    page should contain button    Contact the merchant
+    [Teardown]    close browser
+
+submit3
+    [Documentation]    1.使用submit2的失败订单号支付一笔成功订单
+    ...    2.验证系统流水号重新生成
+    [Tags]    RO
+    open browser    ${url}
+    Connect To Database Using Custom Params    cx_Oracle    'tas','LHdBa91hpaycom','orcl37'
+    @{res}    query    select merchantorderid from TRANSACTION_ORDER t where merchantid='100085' and SYSORDERSUCCSTAUS='2' order by merchantorderdate desc
+    input text    orderid    @{res}[0]
+    Disconnect from Database
+    input text    merchantid    ${merchantid}
+    input text    merchantcert    ${merchantcert}
+    select from list    transmode    新支付
+    select from list    currency    美元
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    click button    Submit1
+    wait until page contains    Credit Card information
+    input text    txtCardNum    ${cardnum}
+    select from list    slExpireMonth    11
+    select from list    slExpireYear    2025
+    input text    txtCardHolderName    eddy
+    input text    txtLastNmae    wang
+    input text    txtCVV    788
+    execute javascript    return VerifyPage();
+    execute javascript    javascript:__doPostBack('btnPay','')
+    page should contain button    Back to store
+    [Teardown]    close browser
+
+submit4
+    [Documentation]    1.使用submit3的订单号提交订单
+    [Tags]    RO
+    open browser    ${url}
+    Connect To Database Using Custom Params    cx_Oracle    'tas','LHdBa91hpaycom','orcl37'
+    @{res}    query    select merchantorderid from TRANSACTION_ORDER t where merchantid='100085' and SYSORDERSUCCSTAUS='1' order by merchantorderdate desc
+    input text    orderid    @{res}[0]
+    Disconnect from Database
+    input text    merchantid    ${merchantid}
+    input text    merchantcert    ${merchantcert}
+    select from list    transmode    新支付
+    select from list    currency    美元
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    click button    Submit1
+    page should contain    SVR0050024
+    [Teardown]    close browser
+
+submit5
+    [Documentation]    1.使用支付成功的历史订单号提交订单
+    [Tags]    RO
+    open browser    ${url}
+    Connect To Database Using Custom Params    cx_Oracle    'tas','LHdBa91hpaycom','orcl37'
+    @{res}    query    select merchantorderid from TRANSACTION_ORDER t where (to_char(merchantorderdate,'YYYY-MM-DD') < (to_char(sysdate,'YYYY-MM-DD'))) and merchantid='100085' and SYSORDERSUCCSTAUS='1' order by merchantorderdate desc
+    input text    orderid    @{res}[0]
+    Disconnect from Database
+    input text    merchantid    ${merchantid}
+    input text    merchantcert    ${merchantcert}
+    select from list    transmode    新支付
+    select from list    currency    美元
+    ${random} =    evaluate    random.randint(0,100)    random,sys
+    input text    orderamount    ${random}
+    click button    Submit1
+    page should contain    SVR0050024
+    [Teardown]    close browser
